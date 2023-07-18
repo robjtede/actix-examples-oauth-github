@@ -1,5 +1,17 @@
-# OAuth (GitHub)
+# Actix Web OAuth Example (GitHub)
 
 Deployed using Shuttle.
 
-## Usage
+View and test here: <https://actix-examples-oauth-github.shuttleapp.rs>
+
+## Local Development
+
+If you have `cargo-shuttle` installed:
+
+```console
+$ cargo shuttle run
+```
+
+## GitHub App Setup
+
+TODO
