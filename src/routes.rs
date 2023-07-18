@@ -1,5 +1,4 @@
 use actix_web::{get, http::header::ACCEPT, web, Responder};
-use actix_web_lab::respond::Html;
 use octocrab::Octocrab;
 use secrecy::ExposeSecret as _;
 use serde::Deserialize;
@@ -9,11 +8,21 @@ use shuttle_secrets::SecretStore;
 pub async fn index(secrets: web::Data<SecretStore>) -> impl Responder {
     let client_id = secrets.get("gh_client_id").unwrap();
 
-    Html::new(format!(
-        r#"<a href="https://github.com/login/oauth/authorize?client_id={client_id}"
-    Login with GitHub
-</a>"#
-    ))
+    maud::html! {
+        (maud::DOCTYPE);
+        html lang="en" {
+            head {
+                meta charset="UTF-8";
+                meta name="viewport" content="width=device-width, initial-scale=1.0" ;
+                title { "GitHub Login Example" }
+            }
+            body {
+                a href=(format!("https://github.com/login/oauth/authorize?client_id={client_id}")) {
+                    "Login with GitHub"
+                }
+            }
+        }
+    }
 }
 
 #[derive(Debug, Deserialize)]
