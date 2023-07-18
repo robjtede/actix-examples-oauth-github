@@ -2,8 +2,9 @@
 name = "actix-examples-oauth-github"
 version = "1.0.0"
 edition = "2021"
-description = "Sample app demonstrating GitHub OAuth login using Actix Web"
 publish = false
+description = "Sample app demonstrating GitHub OAuth login using Actix Web"
+authors = ["Rob Ede <robjtede@icloud.com>"]
 
 [dependencies]
 actix-web = "4.3"
