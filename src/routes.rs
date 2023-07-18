@@ -1,3 +1,5 @@
+//! Web server route handlers.
+
 use actix_web::{get, http::header::ACCEPT, web, Responder};
 use maud::{html, Markup};
 use octocrab::Octocrab;
