@@ -1,3 +1,9 @@
+# direnv
+.direnv
+
+# Rust
+target/
+
 # dotenv
 .env
 
