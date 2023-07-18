@@ -26,7 +26,7 @@ jobs:
         with:
           components: rustfmt
 
-      - name: rustfmt
+      - name: Format Check
         uses: actions-rust-lang/rustfmt@v1
 
   clippy:
@@ -43,7 +43,7 @@ jobs:
         with:
           components: clippy
 
-      - name: clippy
+      - name: Clippy Check
         timeout-minutes: 30
         uses: giraffate/clippy-action@v1
         with:

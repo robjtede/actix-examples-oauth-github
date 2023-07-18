@@ -28,7 +28,7 @@ pub async fn auth_github_callback(
     secrets: web::Data<SecretStore>,
     web::Query(params): web::Query<CallbackParams>,
 ) -> impl Responder {
-    println!("code = {}", &params.code);
+    tracing::debug!("code = {}", &params.code);
 
     let client_id = secrets.get("gh_client_id").unwrap();
     let client_secret = secrets.get("gh_client_secret").unwrap();

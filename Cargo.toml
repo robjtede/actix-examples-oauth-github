@@ -6,12 +6,13 @@ publish = false
 description = "Sample app demonstrating GitHub OAuth login using Actix Web"
 authors = ["Rob Ede <robjtede@icloud.com>"]
 
+[package.metadata.cargo-machete]
+ignored = [
+    "tokio", # macros used by shuttle runtime
+]
+
 [dependencies]
 actix-web = "4.3"
-dotenv = "0.15"
-env_logger = "0.10"
-jsonwebtoken = "8"
-log = "0.4"
 maud = { version = "0.25", features = ["actix-web"] }
 octocrab = "0.27"
 secrecy = "0.8"
@@ -21,3 +22,4 @@ shuttle-actix-web = "0.21"
 shuttle-runtime = "0.21"
 shuttle-secrets = "0.21"
 tokio = "1.26"
+tracing = "0.1.30"

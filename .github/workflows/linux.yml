@@ -24,6 +24,6 @@ jobs:
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
 
-      - name: cargo test
+      - name: Run Tests
         run: cargo test --workspace --all-features --no-fail-fast -- --nocapture
         timeout-minutes: 30
