@@ -1,0 +1,6 @@
+# dotenv
+.env
+
+# shuttle secrets
+Secrets*.toml
+*.pem
