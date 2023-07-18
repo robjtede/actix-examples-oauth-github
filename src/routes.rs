@@ -1,4 +1,5 @@
 use actix_web::{get, http::header::ACCEPT, web, Responder};
+use maud::{html, Markup};
 use octocrab::Octocrab;
 use secrecy::ExposeSecret as _;
 use serde::Deserialize;
@@ -8,21 +9,11 @@ use shuttle_secrets::SecretStore;
 pub async fn index(secrets: web::Data<SecretStore>) -> impl Responder {
     let client_id = secrets.get("gh_client_id").unwrap();
 
-    maud::html! {
-        (maud::DOCTYPE);
-        html lang="en" {
-            head {
-                meta charset="UTF-8";
-                meta name="viewport" content="width=device-width, initial-scale=1.0" ;
-                title { "GitHub Login Example" }
-            }
-            body {
-                a href=(format!("https://github.com/login/oauth/authorize?client_id={client_id}")) {
-                    "Login with GitHub"
-                }
-            }
+    wrap_body(html! {
+        a href=(format!("https://github.com/login/oauth/authorize?client_id={client_id}")) {
+            "Login with GitHub"
         }
-    }
+    })
 }
 
 #[derive(Debug, Deserialize)]
@@ -69,7 +60,21 @@ pub async fn auth_github_callback(
 
     let user = client.current().user().await.unwrap();
 
-    web::Json(serde_json::json!({
-        "login": user.login,
-    }))
+    wrap_body(html! {
+        (format!("Hello, {}!", user.login))
+    })
+}
+
+fn wrap_body(markup: Markup) -> Markup {
+    html! {
+        (maud::DOCTYPE);
+        html lang="en" {
+            head {
+                meta charset="UTF-8";
+                meta name="viewport" content="width=device-width, initial-scale=1.0" ;
+                title { "GitHub Login Example" }
+            }
+            body { (markup) }
+        }
+    }
 }
