@@ -8,7 +8,7 @@ authors = ["Rob Ede <robjtede@icloud.com>"]
 
 [package.metadata.cargo-machete]
 ignored = [
-    "tokio", # macros used by shuttle runtime
+  "tokio", # macros used by shuttle runtime
 ]
 
 [dependencies]
