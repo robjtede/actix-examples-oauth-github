@@ -12,7 +12,7 @@ ignored = [
 ]
 
 [dependencies]
-actix-web = "4.3"
+actix-web = "4.4"
 maud = { version = "0.25", features = ["actix-web"] }
 octocrab = "0.29"
 secrecy = "0.8"
