@@ -1,6 +1,9 @@
 //! Sample app demonstrating GitHub OAuth login using Actix Web.
 
-use actix_web::{middleware::Logger, web, Scope};
+use actix_web::{
+    middleware::{Compress, Logger, NormalizePath},
+    web, Scope,
+};
 use shuttle_actix_web::ShuttleActixWeb;
 use shuttle_secrets::SecretStore;
 
@@ -16,6 +19,8 @@ async fn actix_web(
                 .app_data(web::Data::new(secret_store))
                 .service(routes::index)
                 .service(routes::auth_github_callback)
+                .wrap(Compress::default())
+                .wrap(NormalizePath::trim())
                 .wrap(Logger::default()),
         );
     };
