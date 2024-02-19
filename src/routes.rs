@@ -1,6 +1,6 @@
 //! Web server route handlers.
 
-use actix_web::{get, http::header::ACCEPT, web, Responder};
+use actix_web::{get, web, Responder};
 use maud::{html, Markup};
 use octocrab::Octocrab;
 use secrecy::ExposeSecret as _;
@@ -36,7 +36,7 @@ pub async fn auth_github_callback(
     let oauth_client = octocrab::Octocrab::builder()
         .base_uri("https://github.com")
         .unwrap()
-        .add_header(ACCEPT, "application/json".to_string())
+        .add_header("accept".parse().unwrap(), "application/json".to_string())
         .build()
         .unwrap();
 
