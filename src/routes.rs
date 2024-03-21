@@ -5,7 +5,7 @@ use maud::{html, Markup};
 use octocrab::Octocrab;
 use secrecy::ExposeSecret as _;
 use serde::Deserialize;
-use shuttle_secrets::SecretStore;
+use shuttle_runtime::SecretStore;
 
 #[get("/")]
 pub async fn index(secrets: web::Data<SecretStore>) -> impl Responder {

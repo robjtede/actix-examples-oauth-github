@@ -5,13 +5,13 @@ use actix_web::{
     web, Scope,
 };
 use shuttle_actix_web::ShuttleActixWeb;
-use shuttle_secrets::SecretStore;
+use shuttle_runtime::SecretStore;
 
 mod routes;
 
 #[shuttle_runtime::main]
 async fn actix_web(
-    #[shuttle_secrets::Secrets] secret_store: SecretStore,
+    #[shuttle_runtime::Secrets] secret_store: SecretStore,
 ) -> ShuttleActixWeb<impl FnOnce(&mut web::ServiceConfig) + Send + Clone + 'static> {
     let config = move |cfg: &mut web::ServiceConfig| {
         cfg.service(
