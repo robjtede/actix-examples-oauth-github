@@ -14,7 +14,7 @@ ignored = [
 [dependencies]
 actix-web = "4.8"
 maud = { version = "0.26", features = ["actix-web"] }
-octocrab = "0.38"
+octocrab = "0.39"
 secrecy = "0.8"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
