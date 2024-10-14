@@ -56,7 +56,7 @@ pub async fn auth_github_callback(
         .unwrap_or_else(|_| panic!("couldn't parse OAuth credentials from {oauth:?}"));
 
     let client = Octocrab::builder()
-        .user_access_token(oauth.access_token.expose_secret().clone())
+        .user_access_token(oauth.access_token.expose_secret())
         .build()
         .unwrap();
 

@@ -1,10 +1,8 @@
 [package]
 name = "actix-examples-oauth-github"
-version = "1.0.0"
-edition = "2021"
-publish = false
 description = "Sample app demonstrating GitHub OAuth login using Actix Web"
 authors = ["Rob Ede <robjtede@icloud.com>"]
+edition = "2021"
 
 [package.metadata.cargo-machete]
 ignored = [
@@ -15,7 +13,7 @@ ignored = [
 actix-web = "4.9"
 maud = { version = "0.26", features = ["actix-web"] }
 octocrab = "0.41"
-secrecy = "0.8" # upgrade blocked on octocrab
+secrecy = "0.10"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 shuttle-actix-web = "0.48"
