@@ -15,7 +15,7 @@ ignored = [
 actix-web = "4.9"
 maud = { version = "0.26", features = ["actix-web"] }
 octocrab = "0.41"
-secrecy = "0.8" # upgrade blocked on octocrab
+secrecy = "0.10" # upgrade blocked on octocrab
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 shuttle-actix-web = "0.48"
