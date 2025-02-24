@@ -2,7 +2,7 @@
 
 Deployed using Shuttle.
 
-View and test here: <https://actix-examples-oauth-github.shuttleapp.dev>
+View and test here: <https://actix-examples-oauth-github-npby.shuttle.app/>
 
 ## Local Development
 
