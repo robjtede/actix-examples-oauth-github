@@ -3,6 +3,7 @@
 
 # Rust
 target/
+.shuttle*
 
 # dotenv
 .env
