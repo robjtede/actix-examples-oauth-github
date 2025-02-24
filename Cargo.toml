@@ -2,7 +2,7 @@
 name = "actix-examples-oauth-github"
 description = "Sample app demonstrating GitHub OAuth login using Actix Web"
 authors = ["Rob Ede <robjtede@icloud.com>"]
-edition = "2021"
+edition = "2024"
 
 [package.metadata.cargo-machete]
 ignored = [
@@ -16,7 +16,7 @@ octocrab = "0.43"
 secrecy = "0.10"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-shuttle-actix-web = "0.50"
-shuttle-runtime = "0.50"
+shuttle-actix-web = "0.52"
+shuttle-runtime = "0.52"
 tokio = "1.43"
 tracing = "0.1.41"

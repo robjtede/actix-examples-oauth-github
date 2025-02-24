@@ -1,0 +1,10 @@
+version: "0.2"
+words:
+  - actix
+  - clippy
+  - jsonwebtoken
+  - nextest
+  - nixpkgs
+  - octocrab
+  - serde
+  - taplo

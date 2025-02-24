@@ -3,7 +3,7 @@ _list:
 
 # Lint workspace.
 clippy:
-    cargo clippy --workspace --all-features
+    cargo clippy --workspace --all-features -- -D warnings
 
 # Lint workspace and watch for changes.
 clippy-watch:
@@ -19,14 +19,13 @@ test:
     cargo nextest run --workspace --all-features
 
 # Check project formatting.
-check:
+check: && clippy
     just --unstable --fmt --check
     nixpkgs-fmt .
     fd --hidden --extension=md --extension=yml --exec-batch prettier --check
     fd --hidden --extension=toml --exec-batch taplo format --check
     fd --hidden --extension=toml --exec-batch taplo lint
     cargo +nightly fmt -- --check
-    cargo clippy --workspace --all-targets -- -D warnings
 
 # Format project.
 fmt:

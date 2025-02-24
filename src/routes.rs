@@ -1,7 +1,7 @@
 //! Web server route handlers.
 
-use actix_web::{get, web, Responder};
-use maud::{html, Markup};
+use actix_web::{Responder, get, web};
+use maud::{Markup, html};
 use octocrab::Octocrab;
 use secrecy::ExposeSecret as _;
 use serde::Deserialize;
