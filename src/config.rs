@@ -1,6 +1,7 @@
 //! Application configuration.
 
-use confik::Configuration;
+use confik::{Configuration, EnvSource};
+use eyre::{Result, WrapErr as _};
 use secrecy::SecretString;
 
 #[derive(Clone, Debug, Configuration)]
@@ -18,4 +19,13 @@ pub struct AppConfig {
 
     #[confik(secret)]
     pub gh_client_secret: SecretString,
+}
+
+impl AppConfig {
+    pub fn init() -> Result<Self> {
+        Self::builder()
+            .override_with(EnvSource::new().allow_secrets())
+            .try_build()
+            .wrap_err("failed to load application configuration from environment")
+    }
 }

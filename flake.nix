@@ -13,6 +13,7 @@
         devShells.default = pkgs.mkShell {
           packages = [
             config.formatter
+            pkgs.cargo-machete
             pkgs.just
             pkgs.nodePackages.prettier
             pkgs.taplo

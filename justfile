@@ -1,6 +1,14 @@
 _list:
     @just --list
 
+# Initialize the project.
+init:
+    [ -f .env ] || cp .env.example .env
+
+# Run the web server.
+run:
+    cargo run
+
 # Lint workspace.
 clippy:
     cargo clippy --workspace --all-features -- -D warnings
@@ -26,6 +34,7 @@ check: && clippy
     fd --hidden --extension=toml --exec-batch taplo format --check
     fd --hidden --extension=toml --exec-batch taplo lint
     cargo +nightly fmt -- --check
+    cargo machete --with-metadata
 
 # Format project.
 fmt:
@@ -34,7 +43,3 @@ fmt:
     fd --hidden --extension=md --extension=yml --exec-batch prettier --write
     fd --hidden --extension=toml --exec-batch taplo format
     cargo +nightly fmt
-
-# Deploy project using Shuttle.
-deploy:
-    cargo shuttle deploy
