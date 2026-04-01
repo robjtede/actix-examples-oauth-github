@@ -4,6 +4,8 @@ GitHub OAuth login example built with Actix Web.
 
 This app no longer uses Shuttle; it now runs as a standalone web server with environment-based configuration.
 
+A preview is available at <https://actix-examples-oauth-github.x52.dev>.
+
 ## Local Development
 
 1. Copy `.env.example` to `.env`.
