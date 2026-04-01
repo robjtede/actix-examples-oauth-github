@@ -1,18 +1,22 @@
 //! Web server route handlers.
 
-use actix_web::{get, web, Responder};
-use maud::{html, Markup};
+use actix_web::{Responder, get, web};
+use maud::{Markup, html};
 use octocrab::Octocrab;
 use secrecy::ExposeSecret as _;
 use serde::Deserialize;
-use shuttle_runtime::SecretStore;
+
+use crate::config::AppConfig;
 
 #[get("/")]
-pub async fn index(secrets: web::Data<SecretStore>) -> impl Responder {
-    let client_id = secrets.get("gh_client_id").unwrap();
+pub async fn index(config: web::Data<AppConfig>) -> impl Responder {
+    let client_id = &config.gh_client_id;
+    let redirect_uri = github_callback_url(config.get_ref());
 
     wrap_body(html! {
-        a href=(format!("https://github.com/login/oauth/authorize?client_id={client_id}")) {
+        a href=(format!(
+            "https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}"
+        )) {
             "Login with GitHub"
         }
     })
@@ -25,13 +29,12 @@ pub struct CallbackParams {
 
 #[get("/auth/github/callback")]
 pub async fn auth_github_callback(
-    secrets: web::Data<SecretStore>,
+    config: web::Data<AppConfig>,
     web::Query(params): web::Query<CallbackParams>,
 ) -> impl Responder {
-    tracing::debug!("code = {}", &params.code);
-
-    let client_id = secrets.get("gh_client_id").unwrap();
-    let client_secret = secrets.get("gh_client_secret").unwrap();
+    let client_id = &config.gh_client_id;
+    let client_secret = config.gh_client_secret.expose_secret();
+    let redirect_uri = github_callback_url(config.get_ref());
 
     let oauth_client = octocrab::Octocrab::builder()
         .base_uri("https://github.com")
@@ -47,6 +50,7 @@ pub async fn auth_github_callback(
                 "code": params.code,
                 "client_id": client_id,
                 "client_secret": client_secret,
+                "redirect_uri": redirect_uri,
             })),
         )
         .await
@@ -70,13 +74,22 @@ pub async fn auth_github_callback(
 fn wrap_body(markup: Markup) -> Markup {
     html! {
         (maud::DOCTYPE);
+
         html lang="en" {
             head {
                 meta charset="UTF-8";
                 meta name="viewport" content="width=device-width, initial-scale=1.0" ;
                 title { "GitHub Login Example" }
             }
+
             body { (markup) }
         }
     }
+}
+
+fn github_callback_url(config: &AppConfig) -> String {
+    format!(
+        "{}/auth/github/callback",
+        config.public_base_url.trim_end_matches('/')
+    )
 }
