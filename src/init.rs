@@ -8,5 +8,5 @@ pub(crate) fn tracing() -> eyre::Result<()> {
         .with(env_filter)
         .with(tracing_subscriber::fmt::layer())
         .try_init()
-        .wrap_err("failed to initialize tracing subscriber")
+        .wrap_err("Failed to initialize tracing subscriber")
 }

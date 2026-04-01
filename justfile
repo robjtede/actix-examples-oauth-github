@@ -1,3 +1,5 @@
+image_ref := "actix-examples-oauth-github:latest"
+
 _list:
     @just --list
 
@@ -8,6 +10,17 @@ init:
 # Run the web server.
 run:
     cargo run
+
+# Build the production container image.
+build: init
+    docker build -t {{ image_ref }} .
+
+# Run the production container image locally with the local .env file mounted read-only.
+run-docker: build
+    docker run --rm \
+        --publish 8080:8080 \
+        --volume "$(pwd)/.env:/app/.env:ro" \
+        {{ image_ref }}
 
 # Lint workspace.
 clippy:

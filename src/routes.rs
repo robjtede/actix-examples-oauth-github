@@ -1,6 +1,6 @@
 //! Web server route handlers.
 
-use actix_web::{Responder, get, web};
+use actix_web::{HttpResponse, Responder, get, web};
 use maud::{Markup, html};
 use octocrab::Octocrab;
 use secrecy::ExposeSecret as _;
@@ -25,6 +25,11 @@ pub async fn index(config: web::Data<AppConfig>) -> impl Responder {
 #[derive(Debug, Deserialize)]
 pub struct CallbackParams {
     code: String,
+}
+
+#[get("/healthz")]
+pub async fn healthz() -> impl Responder {
+    HttpResponse::Ok().finish()
 }
 
 #[get("/auth/github/callback")]
@@ -57,7 +62,7 @@ pub async fn auth_github_callback(
         .unwrap();
 
     let oauth = serde_json::from_value::<octocrab::auth::OAuth>(oauth.clone())
-        .unwrap_or_else(|_| panic!("couldn't parse OAuth credentials from {oauth:?}"));
+        .unwrap_or_else(|_| panic!("Couldn't parse OAuth credentials from {oauth:?}"));
 
     let client = Octocrab::builder()
         .user_access_token(oauth.access_token.expose_secret())

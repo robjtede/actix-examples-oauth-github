@@ -26,6 +26,6 @@ impl AppConfig {
         Self::builder()
             .override_with(EnvSource::new().allow_secrets())
             .try_build()
-            .wrap_err("failed to load application configuration from environment")
+            .wrap_err("Failed to load application configuration from environment")
     }
 }

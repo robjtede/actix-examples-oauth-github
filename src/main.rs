@@ -31,14 +31,16 @@ async fn main() -> eyre::Result<()> {
             App::new()
                 .app_data(config.clone())
                 .service(routes::index)
+                .service(routes::healthz)
                 .service(routes::auth_github_callback)
                 .wrap(Compress::default())
                 .wrap(NormalizePath::trim())
-                .wrap(Logger::default())
+                .wrap(Logger::default().log_target("@"))
         }
     })
+    .workers(2)
     .bind((bind_host.as_str(), bind_port))
-    .wrap_err_with(|| format!("failed to bind HTTP server to {bind_host}:{bind_port}"))?
+    .wrap_err_with(|| format!("Failed to bind HTTP server to {bind_host}:{bind_port}"))?
     .run()
     .await
     .wrap_err("HTTP server exited with an error")?;

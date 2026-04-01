@@ -11,4 +11,4 @@ updates:
     groups:
       shuttle:
         patterns:
-          - shuttle-*
+          - "*-eyre"
