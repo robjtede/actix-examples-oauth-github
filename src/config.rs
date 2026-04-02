@@ -23,9 +23,13 @@ pub struct AppConfig {
 
 impl AppConfig {
     pub fn init() -> Result<Self> {
-        Self::builder()
+        let config = Self::builder()
             .override_with(EnvSource::new().allow_secrets())
             .try_build()
-            .wrap_err("Failed to load application configuration from environment")
+            .wrap_err("Failed to load application configuration from environment");
+
+        tracing::info!("Loaded configuration: {config:?}");
+
+        config
     }
 }
