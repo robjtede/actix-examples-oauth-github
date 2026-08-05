@@ -12,3 +12,7 @@ updates:
       shuttle:
         patterns:
           - "*-eyre"
+  - package-ecosystem: nix
+    directory: /
+    schedule:
+      interval: monthly
