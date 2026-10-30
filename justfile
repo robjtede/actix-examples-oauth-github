@@ -35,6 +35,10 @@ clippy-fix *args:
     cargo clippy --workspace --all-features --fix {{ args }}
     cargo +nightly fmt
 
+# Check security advisories.
+check-advisories:
+    cargo deny --log-level warn --workspace --all-features check advisories
+
 # Test workspace.
 test:
     cargo nextest run --workspace --all-features
